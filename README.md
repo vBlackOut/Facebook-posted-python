@@ -25,6 +25,11 @@ crawler_facebook.create_post("your_post")
 ```
 for disable display
 
+crawler_facebook = Facebook(show=1)
+
+set show = 0
+# example
+crawler_facebook = Facebook(show=0)
 ```
 
 for start  
