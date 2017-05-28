@@ -2,7 +2,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from pyvirtualdisplay import Display
- 
+
 # Dependency for wait element
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -11,6 +11,7 @@ from selenium.webdriver.support import expected_conditions as EC
 # Dependancy for other element
 import time
 import string
+import sys
 
 
 start_time = time.time()
@@ -78,26 +79,29 @@ class Facebook():
         my_friend.click()
 
         # get name friend
-        print(round(number_friend/21)+1)
+        #print(round(number_friend/21)+1)
         self.broswer = self.scrollDown(self.broswer, round(number_friend/10))
-        self.broswer.implicitly_wait(5)
+        self.broswer.implicitly_wait(0.001)
+        count = 1
         for a in range(1, round(number_friend/21)+2, 1):
             for i in range(1, number_friend, 1):
                 try:
-                    friend_to = WebDriverWait(self.broswer, 1).until(EC.presence_of_element_located((By.XPATH, "//body/div[@class='_li']/div[@id='globalContainer']/div[@id='content']/div/div[@id='mainContainer']/div[@id='contentCol']/div[@id='contentArea']/div[@id='pagelet_timeline_main_column']/div[@id='pagelet_main_column_personal']/div[@id='timeline-medley']/div/div/div[2]/div/ul["+str(a)+"]"+"/li["+str(i)+"]/div/div/div[2]/div/div/a")))
+                    friend_to = WebDriverWait(self.broswer, 0.01).until(EC.presence_of_element_located((By.XPATH, "//body/div[@class='_li']/div[@id='globalContainer']/div[@id='content']/div/div[@id='mainContainer']/div[@id='contentCol']/div[@id='contentArea']/div[@id='pagelet_timeline_main_column']/div[@id='pagelet_main_column_personal']/div[@id='timeline-medley']/div/div/div[2]/div/ul["+str(a)+"]"+"/li["+str(i)+"]/div/div/div[2]/div/div/a")))
                 except:
                     pass
-                print(i, a)
+                #print(i, a)
                 try:
-                    name_friend = WebDriverWait(self.broswer, 1).until(EC.presence_of_element_located((By.XPATH, "//body/div[@class='_li']/div[@id='globalContainer']/div[@id='content']/div/div[@id='mainContainer']/div[@id='contentCol']/div[@id='contentArea']/div[@id='pagelet_timeline_main_column']/div[@id='pagelet_main_column_personal']/div[@id='timeline-medley']/div/div/div[2]/div/ul["+str(a)+"]"+"/li["+str(i)+"]/div/div/div[2]/div/div/div/a")))
+                    name_friend = WebDriverWait(self.broswer, 0.01).until(EC.presence_of_element_located((By.XPATH, "//body/div[@class='_li']/div[@id='globalContainer']/div[@id='content']/div/div[@id='mainContainer']/div[@id='contentCol']/div[@id='contentArea']/div[@id='pagelet_timeline_main_column']/div[@id='pagelet_main_column_personal']/div[@id='timeline-medley']/div/div/div[2]/div/ul["+str(a)+"]"+"/li["+str(i)+"]/div/div/div[2]/div/div/div/a")))
         #          /div[id='pagelet_main_column_personal']/div[@id='timeline-medley']/div/div/div[2]/div/ul
                 except:
                     break
                 try:
                     print(name_friend.text + ":", friend_to.text)
+                    count = count + 1
                 except:
                     print(name_friend.text)
-                             
+        print(count)
+
                 #print(name_friend.get_attribute("innerHTML"))
 
     def create_post(self, msg):
@@ -155,7 +159,7 @@ class Facebook():
 crawler_facebook = Facebook(show=1)
 crawler_facebook.login("your_email","your_password")
 crawler_facebook.get_friend()
-crawler_facebook.create_post("great post vBlackOut thanx :)")
+crawler_facebook.create_post("great vBlackOut")
 crawler_facebook.logout()
 
 interval = time.time() - start_time
