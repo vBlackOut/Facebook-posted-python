@@ -1,4 +1,4 @@
-# Facebook-posted-python  
+# Facebook-posting-python  
 post your comment automatical  
 
 requirement  
