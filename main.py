@@ -19,7 +19,7 @@ chat_facebook = Chat(crawler_facebook)
 crawler_facebook.login("your_email", decode(None, "your_hash_secure"))
 
 # get list of friend on my profile
-crawler_facebook.get_friend()
+# crawler_facebook.get_friend() # bug wait update for use
 
 # post message on my wall
 crawler_facebook.create_post("Great vBlackOut")
